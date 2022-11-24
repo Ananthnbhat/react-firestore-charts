@@ -4,8 +4,21 @@ import React, { useEffect, useReducer, useContext } from 'react';
 import Header from './components/Header';
 import { collection, setDoc, doc, getDocs } from "firebase/firestore";
 import { db } from './firebase';
+import { DoughnutGraph, BarGraph } from './components/Graphs'
 
 function App() {
+
+
+  const [state, dispatch] = useReducer(
+    (state, action) => ({
+      ...state,
+      ...action,
+    }),
+    {
+      labels: [],
+      datasets: [],
+    }
+  );
 
   useEffect(() => {
     async function getDataFromFirestore() {
@@ -17,6 +30,8 @@ function App() {
         console.log(`${doc.id} => ${doc.data().labels.forEach((label) => console.log(label))}`);
         if (doc.id === "doughnut") {
           // useReducer, useMemo and useContext
+          dispatch({ labels: doc.data().labels })
+          dispatch({ datasets: doc.data().datasets })
         }
       });
     }
@@ -28,6 +43,10 @@ function App() {
   return (
     <div className="app">
       <Header />
+      <div>
+        <DoughnutGraph labels={state.labels} datasets={state.datasets} />
+        <BarGraph />
+      </div>
     </div>
   );
 }
