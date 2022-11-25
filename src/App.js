@@ -5,8 +5,11 @@ import Header from './components/Header';
 import { collection, setDoc, doc, getDocs, getDoc } from "firebase/firestore";
 import { db } from './firebase';
 import { DoughnutGraph, BarGraph } from './components/Graphs'
+import { getAuth } from 'firebase/auth'
 
 function App() {
+
+  const auth = getAuth();
 
   const [state, dispatch] = useReducer(
     (state, action) => ({
@@ -37,7 +40,7 @@ function App() {
   return (
     <div className="app">
       <Header />
-      <div className='graph-separator'>
+      {auth.currentUser ? <div className='graph-separator'>
         <div className='doughnut-parent'>
           <DoughnutGraph labels={state.labels} datasets={state.datasets} />
         </div>
@@ -45,6 +48,16 @@ function App() {
           <BarGraph />
         </div>
       </div>
+        :
+        <>
+          {/* Improve below tags */}
+          <h3>&nbsp;&nbsp;Please sign in using the icon on top right corner</h3>
+          <br />
+          <br />
+          <br />
+          <p>&nbsp;&nbsp;Show content to Guest users below</p>
+        </>}
+
     </div>
   );
 }
