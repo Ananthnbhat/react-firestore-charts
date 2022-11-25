@@ -32,7 +32,23 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
+}
+
+.graph-separator {
+  display: flex;
+  height: 300px;
+}
+
+.doughnut-parent {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.bargraph-parent {
+  flex: 1;
 }

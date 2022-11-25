@@ -1,45 +1,50 @@
 import logo from './logo.svg';
 import './App.css';
 import React, { useEffect, useReducer, useContext } from 'react';
-import { collection, setDoc, doc, getDocs } from "firebase/firestore";
+import Header from './components/Header';
+import { collection, setDoc, doc, getDocs, getDoc } from "firebase/firestore";
 import { db } from './firebase';
+import { DoughnutGraph, BarGraph } from './components/Graphs'
 
 function App() {
+
+  const [state, dispatch] = useReducer(
+    (state, action) => ({
+      ...state,
+      ...action,
+    }),
+    {
+      labels: [],
+      datasets: [],
+    }
+  );
 
   useEffect(() => {
     async function getDataFromFirestore() {
 
       // await setDoc(doc(db, "chart-data", "bargraph"), );
 
-      const querySnapshot = await getDocs(collection(db, "chart-data"));
-      querySnapshot.forEach((doc) => {
-        console.log(`${doc.id} => ${doc.data().labels.forEach((label) => console.log(label))}`);
-        if (doc.id === "doughnut") {
-          // useReducer, useMemo and useContext
-        }
-      });
+      const docRef = doc(db, "chart-data", "doughnut");
+      const docSnap = await getDoc(docRef);
+      const doughnutDoc = docSnap.data()
+      // useReducer, useMemo and useContext
+      dispatch({ labels: doughnutDoc.labels })
+      dispatch({ datasets: doughnutDoc.datasets })
     }
     getDataFromFirestore()
-    // return () => {
-    //   cleanup
-    // };
   }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <Header />
+      <div className='graph-separator'>
+        <div className='doughnut-parent'>
+          <DoughnutGraph labels={state.labels} datasets={state.datasets} />
+        </div>
+        <div className='bargraph-parent'>
+          <BarGraph />
+        </div>
+      </div>
     </div>
   );
 }
