@@ -1,52 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
-import React, { useEffect, useReducer, useContext } from 'react';
-import Header from './components/Header';
-import { collection, setDoc, doc, getDocs, getDoc } from "firebase/firestore";
-import { db } from './firebase';
-import { DoughnutGraph, BarGraph } from './components/Graphs'
+import React from 'react';
+import { Header, Dashboard, Signin } from './components';
+import { Routes, Route, Outlet, BrowserRouter } from "react-router-dom";
 
 function App() {
 
-  const [state, dispatch] = useReducer(
-    (state, action) => ({
-      ...state,
-      ...action,
-    }),
-    {
-      labels: [],
-      datasets: [],
-    }
-  );
-
-  useEffect(() => {
-    async function getDataFromFirestore() {
-
-      // await setDoc(doc(db, "chart-data", "bargraph"), );
-
-      const docRef = doc(db, "chart-data", "doughnut");
-      const docSnap = await getDoc(docRef);
-      const doughnutDoc = docSnap.data()
-      // useReducer, useMemo and useContext
-      dispatch({ labels: doughnutDoc.labels })
-      dispatch({ datasets: doughnutDoc.datasets })
-    }
-    getDataFromFirestore()
-  }, []);
-
   return (
-    <div className="app">
-      <Header />
-      <div className='graph-separator'>
-        <div className='doughnut-parent'>
-          <DoughnutGraph labels={state.labels} datasets={state.datasets} />
-        </div>
-        <div className='bargraph-parent'>
-          <BarGraph />
-        </div>
-      </div>
-    </div>
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Dashboard />} />
+            <Route path='dashboard' element={<Dashboard />} />
+            <Route path="signin" element={<Signin />} />
+
+            {/* Using path="*"" means "match anything", so this route
+                acts like a catch-all for URLs that we don't have explicit
+                routes for. */}
+            {/* <Route path="*" element={<NoMatch />} /> */}
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 
 export default App;
+
+function Layout() {
+  return (
+    <>
+      <Header />
+      <Outlet />
+    </>
+  )
+}
