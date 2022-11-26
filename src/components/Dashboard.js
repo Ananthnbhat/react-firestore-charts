@@ -3,6 +3,7 @@ import { collection, setDoc, doc, getDocs, getDoc } from "firebase/firestore";
 import { db } from '../firebase';
 import { DoughnutGraph, BarGraph } from './Graphs'
 import { getAuth } from 'firebase/auth'
+import { Box } from '@mui/material'
 
 function Dashboard() {
 
@@ -36,14 +37,15 @@ function Dashboard() {
 
     return (
         <div className="app">
-            {auth.currentUser ? <div className='graph-separator'>
-                <div className='doughnut-parent'>
-                    <DoughnutGraph labels={state.labels} datasets={state.datasets} />
-                </div>
-                <div className='bargraph-parent'>
-                    <BarGraph />
-                </div>
-            </div>
+            {auth.currentUser ?
+                <Box sx={{ display: 'flex' }}>
+                    <Box sx={{ width: 300, maxHeight: 300, display: 'flex', flex: 1, justifyContent: 'center' }}>
+                        <DoughnutGraph labels={state.labels} datasets={state.datasets} />
+                    </Box>
+                    <Box sx={{ width: 300, height: 300, flex: 1 }}>
+                        <BarGraph />
+                    </Box>
+                </Box>
                 :
                 <>
                     {/* Improve below tags */}

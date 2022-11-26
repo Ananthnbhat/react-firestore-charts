@@ -38,29 +38,36 @@ const Signin = () => {
     }
 
     return (
-        <Box
-            component='form'
-            sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mt: 5 }}
-        >
-            <Card sx={{ maxWidth: 500, width: 500 }}>
-                <CardContent sx={{ display: 'flex', flexDirection: 'column' }}>
-                    <>
-                        <FormControl sx={{ m: 2 }}>
-                            <InputLabel htmlFor="email">Email address</InputLabel>
-                            <Input id="email" aria-describedby="my-helper-text" type='text' value={email} onChange={handleEmailInput} />
-                        </FormControl>
-                        <FormControl sx={{ m: 2 }}>
-                            <InputLabel htmlFor="password">Password</InputLabel>
-                            <Input id="password" aria-describedby="my-helper-text" type='password' value={password} onChange={handlePasswordInput} />
-                        </FormControl>
-                    </>
-                    <>
-                        <Button sx={{ m: 2 }} variant='contained' onClick={handleFormSubmission}>Login</Button>
-                        <Button sx={{ width: 100, display: 'flex', alignSelf: 'center' }} type='reset'>Reset</Button>
-                    </>
-                </CardContent>
-            </Card>
-        </Box >
+        <>
+            <Box
+                component='form'
+                sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mt: 5 }}
+            >
+                <Card sx={{ maxWidth: 500, width: 500 }}>
+                    <CardContent sx={{ display: 'flex', flexDirection: 'column' }}>
+                        <>
+                            <FormControl sx={{ m: 2 }}>
+                                <InputLabel htmlFor="email">Email address</InputLabel>
+                                <Input id="email" aria-describedby="my-helper-text" type='text' value={email} onChange={handleEmailInput} />
+                            </FormControl>
+                            <FormControl sx={{ m: 2 }}>
+                                <InputLabel htmlFor="password">Password</InputLabel>
+                                <Input id="password" aria-describedby="my-helper-text" type='password' value={password} onChange={handlePasswordInput} />
+                            </FormControl>
+                        </>
+                        <>
+                            <Button sx={{ m: 2 }} variant='contained' onClick={handleFormSubmission}>Login</Button>
+                            <Button sx={{ width: 100, display: 'flex', alignSelf: 'center' }} type='reset'>Reset</Button>
+                        </>
+                    </CardContent>
+                </Card>
+            </Box >
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', color: '#aba8a8' }}>
+                <span>&nbsp;ananthnbhat2@gmail.com</span>
+                <br />
+                <span>&nbsp;123456</span>
+            </div>
+        </>
     )
 
 }

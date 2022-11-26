@@ -189,7 +189,7 @@ export default function Header() {
                         component="div"
                         sx={{ display: { xs: 'none', sm: 'block' } }}
                     >
-                        react-firestore-mui
+                        <Link to="/dashboard" style={{ textDecoration: 'none', color: 'white' }}>react-firestore-mui</Link>
                     </Typography>
                     <Search>
                         <SearchIconWrapper>

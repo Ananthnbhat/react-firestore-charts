@@ -6,8 +6,21 @@ const DoughnutGraph = ({ labels, datasets }) => {
 
     ChartJS.register(ArcElement, Tooltip, Legend);
     const data = { labels, datasets }
+    const options = {
+        responsive: true,
+        // maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                position: 'right',
+            },
+            title: {
+                display: true,
+                text: 'Chart.js Doughnut Chart',
+            },
+        },
+    };
 
-    return <Doughnut data={data} />;
+    return <Doughnut data={data} options={options} />;
 
 }
 export default DoughnutGraph;
