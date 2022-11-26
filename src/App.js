@@ -10,6 +10,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Dashboard />} />
+            <Route path='dashboard' element={<Dashboard />} />
             <Route path="signin" element={<Signin />} />
 
             {/* Using path="*"" means "match anything", so this route

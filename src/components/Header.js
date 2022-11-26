@@ -8,8 +8,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { getAuth, signOut } from 'firebase/auth';
-import Signin from './Signin';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -54,6 +53,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function Header() {
 
     const auth = getAuth();
+    const navigate = useNavigate();
 
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -78,6 +78,7 @@ export default function Header() {
         //signout
         signOut(auth).then(() => {
             // Sign-out successful.
+            navigate("/signin")
         }).catch((error) => {
             // An error happened.
         });
@@ -107,10 +108,10 @@ export default function Header() {
             onClose={handleMenuClose}
         >
             {auth.currentUser ?
-                <>
+                <div>
                     <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
                     <MenuItem onClick={handleSignOut}>Sign out</MenuItem>
-                </>
+                </div>
                 : <MenuItem onClick={handleMenuClose}><Link to="/signin" style={{ textDecoration: 'none' }}>Sign in</Link></MenuItem>
             }
 
