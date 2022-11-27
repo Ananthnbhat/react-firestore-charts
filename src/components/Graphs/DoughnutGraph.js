@@ -1,6 +1,7 @@
 import React from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
+import { Skeleton } from '@mui/material';
 
 const DoughnutGraph = ({ labels, datasets }) => {
 
@@ -19,8 +20,11 @@ const DoughnutGraph = ({ labels, datasets }) => {
             },
         },
     };
-
-    return <Doughnut data={data} options={options} />;
+    if (datasets !== undefined) {
+        return <Doughnut data={data} options={options} />;
+    } else {
+        return <Skeleton width={300} height={300} />
+    }
 
 }
 export default DoughnutGraph;

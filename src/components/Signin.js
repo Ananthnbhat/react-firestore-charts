@@ -12,7 +12,6 @@ const Signin = () => {
     const navigate = useNavigate();
 
     const handleEmailInput = (event) => {
-        console.log(typeof event.target.value)
         setEmail(event.target.value)
     }
     const handlePasswordInput = event => {
@@ -63,7 +62,7 @@ const Signin = () => {
                 </Card>
             </Box >
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', color: '#aba8a8' }}>
-                <span>&nbsp;ananthnbhat2@gmail.com</span>
+                <span>&nbsp;abc@gmail.com</span>
                 <br />
                 <span>&nbsp;123456</span>
             </div>
